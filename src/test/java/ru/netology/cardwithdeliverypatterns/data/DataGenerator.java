@@ -1,7 +1,9 @@
-package ru.netology.CardWithDeliveryPatterns.data;
+package ru.netology.cardwithdeliverypatterns.data;
 
 import com.github.javafaker.Faker;
 import lombok.Value;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +19,7 @@ public class DataGenerator {
 
     public static String generateDate(int shift) {
         return LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));// TODO: добавить логику для объявления переменной date и задания её значения, для генерации строки с датой
-        // Вы можете использовать класс LocalDate и его методы для получения и форматирования даты
+
 
     }
 
@@ -30,20 +32,16 @@ public class DataGenerator {
                 "Хабаровск", "Благовещенск"};
 
         return cities[new Random().nextInt(cities.length)];
-        // TODO: добавить логику для объявления переменной city и задания её значения, генерацию можно выполнить
-        // с помощью Faker, либо используя массив валидных городов и класс Random
 
     }
 
     public static String generateName() {
-        // TODO: добавить логику для объявления переменной name и задания её значения, для генерации можно
-        // использовать Faker
+
         return faker.name().name();
     }
 
     public static String generatePhone() {
-        // TODO: добавить логику для объявления переменной phone и задания её значения, для генерации можно
-        // использовать Faker
+
         return faker.phoneNumber().phoneNumber();
     }
 
@@ -51,7 +49,8 @@ public class DataGenerator {
         private Registration() {
         }
 
-        public static UserInfo generateUser(String locale) {
+        @Contract(" -> new")
+        public static @NotNull UserInfo generateUser() {
             return new UserInfo(generateCity(), generateName(), generatePhone());
         }
     }
